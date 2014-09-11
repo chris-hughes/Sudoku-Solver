@@ -22,7 +22,6 @@ function checkRows(grid){
 	for (i=0;i<81;i++){
 		if (!grid[i].value){
 			for (j=i-(i % 9);j<i+9-(i % 9);j++){
-            console.log(i,j);
 				if (grid[j].value){
                var index = grid[i].options.indexOf(grid[j].value);
                if (index>-1){
@@ -34,6 +33,22 @@ function checkRows(grid){
 	}
 }
 
+function checkColumns(grid){
+   for (i=0;i<81;i++){
+      if (!grid[i].value){
+         for (j=i-9*Math.floor(i/9);j<i+81-9*Math.floor(i/9);j+=9){
+            if (grid[j].value){
+               var index = grid[i].options.indexOf(grid[j].value);
+               if (index>-1){
+                  grid[i].options.splice(index, 1);
+               }
+            }
+         }
+      }
+   }
+}
+
 checkRows(workingGrid);
+checkColumns(workingGrid);
 
 console.log(workingGrid);
