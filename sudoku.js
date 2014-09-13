@@ -12,6 +12,24 @@ var initialGrid = [
 
 // console.log(initialGrid);
 
+function checkSquare(grid){
+   for (i=0;i<81;i++){
+      if (!grid[i].value){
+         for (j=i-i%3;j<i+3-(i%3);j++){
+            for (k=j-(Math.floor(j/9) % 3)*9;k<j+27-(Math.floor(j/9) % 3)*9;k+=9){
+               if (grid[k].value){
+                  var index = grid[i].options.indexOf(grid[k].value);
+                  if (index>-1){
+                     grid[i].options.splice(index, 1);
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+
+
 var workingGrid = initialGrid.map(function(i){
 	return i>0 ? {value: i, options: []} : {value: 0, options: [1,2,3,4,5,6,7,8,9]};
 });
@@ -48,7 +66,9 @@ function checkColumns(grid){
    }
 }
 
-checkRows(workingGrid);
-checkColumns(workingGrid);
+
+// checkRows(workingGrid);
+// checkColumns(workingGrid);
+checkSquare(workingGrid);
 
 console.log(workingGrid);
