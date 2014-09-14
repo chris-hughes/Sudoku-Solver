@@ -112,7 +112,6 @@ sudoku.checkSquaresSolutions = function(grid){
       }
       return squareTotal;
    })
-   console.log(checkSum);
    return checkSum.reduce(function(a,b){
       return a+b;
    }) == 45*9 ? true : false;
@@ -124,11 +123,19 @@ sudoku.solve = function(grid){
       return i.value > 0;
    }).length;
 
-   // if all cells have value then solution found
+   // if all cells have value then check if valid solution found
    if (count==81){
-      return sudoku.gridToArray(grid);
+      if (sudoku.checkRowsSolutions(grid)    && 
+          sudoku.checkColumnsSolutions(grid) && 
+          sudoku.checkSquaresSolutions(grid)
+         )
+      {
+         return true;
+      }
+      else {
+         return false;
+      }
    }
-
 }
 
 

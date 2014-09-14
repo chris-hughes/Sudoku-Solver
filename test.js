@@ -99,7 +99,7 @@ describe('Options checking functions', function(){
 
 describe('Solution checking functions', function(){
 
-	describe('Check row', function(){
+	describe('Check row when correct', function(){
 
 		var array = [
 				1, 2, 3, 4, 5, 6, 7, 8, 9 ,
@@ -114,8 +114,29 @@ describe('Solution checking functions', function(){
 
 	    var workingGrid = sudoku.arrayToGrid(array);
 
-		it('should check rows are correct', function(){
+		it('should return true for correct solution', function(){
 			sudoku.checkRowsSolutions(workingGrid).should.be.true;
+		})
+
+	})
+
+	describe('Check row when incorrect', function(){	
+
+		var array = [
+				0, 9, 0, 0, 0, 0, 8, 3, 0 ,
+				3, 0, 4, 0, 1, 0, 0, 2, 0 ,
+				0, 0, 0, 0, 0, 9, 0, 1, 4 ,
+				0, 0, 9, 0, 0, 1, 0, 0, 3 ,
+				0, 0, 0, 2, 7, 4, 0, 0, 0 ,
+				6, 0, 0, 9, 0, 0, 2, 0, 0 ,
+				9, 2, 0, 7, 0, 0, 0, 0, 0 ,
+				0, 6, 0, 0, 3, 0, 9, 0, 1 ,
+				0, 5, 3, 0, 0, 0, 0, 6, 0 ];
+
+	    var workingGrid = sudoku.arrayToGrid(array);
+
+		it('should return false for incorrect solution', function(){
+			sudoku.checkRowsSolutions(workingGrid).should.be.false;
 		})
 
 	})
@@ -135,8 +156,29 @@ describe('Solution checking functions', function(){
 
 	    var workingGrid = sudoku.arrayToGrid(array);
 
-		it('should check columns are correct', function(){
+		it('should return true for correct solution', function(){
 			sudoku.checkColumnsSolutions(workingGrid).should.be.true;
+		})
+
+	})
+
+	describe('Check column when incorrect', function(){	
+
+		var array = [
+				0, 9, 0, 0, 0, 0, 8, 3, 0 ,
+				3, 0, 4, 0, 1, 0, 0, 2, 0 ,
+				0, 0, 0, 0, 0, 9, 0, 1, 4 ,
+				0, 0, 9, 0, 0, 1, 0, 0, 3 ,
+				0, 0, 0, 2, 7, 4, 0, 0, 0 ,
+				6, 0, 0, 9, 0, 0, 2, 0, 0 ,
+				9, 2, 0, 7, 0, 0, 0, 0, 0 ,
+				0, 6, 0, 0, 3, 0, 9, 0, 1 ,
+				0, 5, 3, 0, 0, 0, 0, 6, 0 ];
+
+	    var workingGrid = sudoku.arrayToGrid(array);
+
+		it('should return false for incorrect solution', function(){
+			sudoku.checkColumnsSolutions(workingGrid).should.be.false;
 		})
 
 	})
@@ -162,12 +204,33 @@ describe('Solution checking functions', function(){
 
 	})
 
+	describe('Check column when incorrect', function(){	
+
+		var array = [
+				0, 9, 0, 0, 0, 0, 8, 3, 0 ,
+				3, 0, 4, 0, 1, 0, 0, 2, 0 ,
+				0, 0, 0, 0, 0, 9, 0, 1, 4 ,
+				0, 0, 9, 0, 0, 1, 0, 0, 3 ,
+				0, 0, 0, 2, 7, 4, 0, 0, 0 ,
+				6, 0, 0, 9, 0, 0, 2, 0, 0 ,
+				9, 2, 0, 7, 0, 0, 0, 0, 0 ,
+				0, 6, 0, 0, 3, 0, 9, 0, 1 ,
+				0, 5, 3, 0, 0, 0, 0, 6, 0 ];
+
+	    var workingGrid = sudoku.arrayToGrid(array);
+
+		it('should return false for incorrect solution', function(){
+			sudoku.checkSquaresSolutions(workingGrid).should.be.false;
+		})
+
+	})
+
 })
 
 
 describe('Solve Function', function(){
 
-	describe('Fully populated grid', function(){
+	describe('Correct solution should return true', function(){
 
 	    var array = [
 				1, 2, 3, 4, 5, 6, 7, 8, 9 ,
@@ -182,19 +245,31 @@ describe('Solve Function', function(){
 
 	    var workingGrid = sudoku.arrayToGrid(array);
 
-	    it('should return a fully populated grid', function(){
+	    it('should return true', function(){
 
-			sudoku.solve(workingGrid).should.eql(
-			   [1, 2, 3, 4, 5, 6, 7, 8, 9 ,
-			    4, 5, 6, 7, 8, 9, 1, 2, 3 ,
-			    7, 8, 9, 1, 2, 3, 4, 5, 6 ,
-			    2, 3, 4, 5, 6, 7, 8, 9, 1 ,
-			    5, 6, 7, 8, 9, 1, 2, 3, 4 ,
-			    8, 9, 1, 2, 3, 4, 5, 6, 7 ,
-			    3, 4, 5, 6, 7, 8, 9, 1, 2 ,
-			    6, 7, 8, 9, 1, 2, 3, 4, 5 ,
-			    9, 1, 2, 3, 4, 5, 6, 7, 8 ]
-			);
+			sudoku.solve(workingGrid).should.be.true;
+
+	    })
+ 	})
+
+ 	describe('Incorrect solution should return false', function(){
+
+		var array = [
+				1, 9, 1, 1, 1, 1, 8, 3, 1 ,
+				3, 1, 4, 1, 1, 1, 1, 2, 1 ,
+				1, 1, 1, 1, 1, 9, 1, 1, 4 ,
+				1, 1, 9, 1, 1, 1, 1, 1, 3 ,
+				1, 1, 1, 2, 7, 4, 1, 1, 1 ,
+				6, 1, 1, 9, 1, 1, 2, 1, 1 ,
+				9, 2, 1, 7, 1, 1, 1, 1, 1 ,
+				1, 6, 1, 1, 3, 1, 9, 1, 1 ,
+				1, 5, 3, 1, 1, 1, 1, 6, 1 ];
+
+	    var workingGrid = sudoku.arrayToGrid(array);
+
+	    it('should return false', function(){
+
+			sudoku.solve(workingGrid).should.be.false;
 
 	    })
  	})
