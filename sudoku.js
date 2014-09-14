@@ -58,7 +58,7 @@ sudoku.checkColumns = function(grid){
    return grid;
 }
 
-sudoku.checkSquare = function(grid){
+sudoku.checkSquares = function(grid){
    for (i=0;i<81;i++){
       if (!grid[i].value){
          for (j=i-i%3;j<i+3-(i%3);j++){
@@ -73,6 +73,7 @@ sudoku.checkSquare = function(grid){
          }
       }
    }
+   return grid;
 }
 
 
@@ -95,4 +96,5 @@ exports.arrayToGrid = sudoku.arrayToGrid;
 exports.gridToArray = sudoku.gridToArray;
 exports.checkRows = sudoku.checkRows;
 exports.checkColumns = sudoku.checkColumns;
+exports.checkSquares = sudoku.checkSquares;
 exports.solve = sudoku.solve;
