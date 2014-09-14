@@ -1,4 +1,4 @@
-var rowTest = [ 
+var rowOptionsTest = [ 
 	{ value: 0, options: [ 1, 2, 4, 5, 6, 7 ] },
 	{ value: 9, options: [] },
 	{ value: 0, options: [ 1, 2, 4, 5, 6, 7 ] },
@@ -82,7 +82,7 @@ var rowTest = [
 	{ value: 0, options: [ 1, 2, 4, 7, 8, 9 ] } 
 ];
 
-var columnTest = [ 
+var columnOptionsTest = [ 
 	{ value: 0, options: [ 1, 2, 4, 5, 7, 8 ] },
 	{ value: 9, options: [] },
 	{ value: 0, options: [ 1, 2, 5, 6, 7, 8 ] },
@@ -166,7 +166,7 @@ var columnTest = [
 	{ value: 0, options: [ 2, 5, 6, 7, 8, 9 ] } 
 ];
 
-var squareTest = [ 
+var squareOptionsTest = [ 
 	{ value: 0, options: [ 1, 2, 5, 6, 7, 8 ] },
 	{ value: 9, options: [] },
 	{ value: 0, options: [ 1, 2, 5, 6, 7, 8 ] },
@@ -250,6 +250,6 @@ var squareTest = [
 	{ value: 0, options: [ 2, 3, 4, 5, 7, 8 ] } 
 ];
 
-exports.rowTest = rowTest;
-exports.columnTest = columnTest;
-exports.squareTest = squareTest;
+exports.rowOptionsTest = rowOptionsTest;
+exports.columnOptionsTest = columnOptionsTest;
+exports.squareOptionsTest = squareOptionsTest;

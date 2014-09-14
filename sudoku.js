@@ -26,7 +26,7 @@ sudoku.gridToArray = function(grid){
 
 sudoku.workingGrid = sudoku.arrayToGrid(sudoku.initialArray);
 
-sudoku.checkRows = function(grid){
+sudoku.checkRowsOptions = function(grid){
 	for (i=0;i<81;i++){
 		if (!grid[i].value){
 			for (j=i-(i % 9);j<i+9-(i % 9);j++){
@@ -42,7 +42,7 @@ sudoku.checkRows = function(grid){
    return grid;
 }
 
-sudoku.checkColumns = function(grid){
+sudoku.checkColumnsOptions = function(grid){
    for (i=0;i<81;i++){
       if (!grid[i].value){
          for (j=i-9*Math.floor(i/9);j<i+81-9*Math.floor(i/9);j+=9){
@@ -58,7 +58,7 @@ sudoku.checkColumns = function(grid){
    return grid;
 }
 
-sudoku.checkSquares = function(grid){
+sudoku.checkSquaresOptions = function(grid){
    for (i=0;i<81;i++){
       if (!grid[i].value){
          for (j=i-i%3;j<i+3-(i%3);j++){
@@ -76,6 +76,47 @@ sudoku.checkSquares = function(grid){
    return grid;
 }
 
+sudoku.checkRowsSolutions = function(grid){
+   for (i=0;i<9;i++){
+      rowTotal = 0;
+      for (j=0;j<9;j++){
+         rowTotal+=grid[i*9+j].value;
+      }
+      if (rowTotal!=45){
+         return false;
+      }
+   }
+   return true;
+}
+
+sudoku.checkColumnsSolutions = function(grid){
+   for (i=0;i<9;i++){
+      columnTotal = 0;
+      for (j=0;j<9;j++){
+         columnTotal+=grid[i+j*9].value;
+      }
+      if (columnTotal!=45){
+         return false;
+      }
+   }
+   return true;
+}
+
+sudoku.checkSquaresSolutions = function(grid){
+   var checkSum = [0,3,6,27,30,33,54,57,60].map(function(i){
+      squareTotal=0;
+      for (j=0;j<3;j++){
+         for (k=0;k<27;k+=9){
+            squareTotal+=grid[i+j+k].value;
+         }
+      }
+      return squareTotal;
+   })
+   console.log(checkSum);
+   return checkSum.reduce(function(a,b){
+      return a+b;
+   }) == 45*9 ? true : false;
+}
 
 sudoku.solve = function(grid){
 
@@ -94,7 +135,10 @@ sudoku.solve = function(grid){
 exports.initialGrid = sudoku.initialArray;
 exports.arrayToGrid = sudoku.arrayToGrid;
 exports.gridToArray = sudoku.gridToArray;
-exports.checkRows = sudoku.checkRows;
-exports.checkColumns = sudoku.checkColumns;
-exports.checkSquares = sudoku.checkSquares;
+exports.checkRowsOptions = sudoku.checkRowsOptions;
+exports.checkColumnsOptions = sudoku.checkColumnsOptions;
+exports.checkSquaresOptions = sudoku.checkSquaresOptions;
+exports.checkRowsSolutions = sudoku.checkRowsSolutions;
+exports.checkColumnsSolutions = sudoku.checkColumnsSolutions;
+exports.checkSquaresSolutions = sudoku.checkSquaresSolutions;
 exports.solve = sudoku.solve;
