@@ -1,7 +1,7 @@
 
 var sudoku = {};
 
-sudoku.initialGrid = [
+sudoku.initialArray = [
    0, 9, 0, 0, 0, 0, 8, 3, 0 ,
    3, 0, 4, 0, 1, 0, 0, 2, 0 ,
    0, 0, 0, 0, 0, 9, 0, 1, 4 ,
@@ -24,7 +24,7 @@ sudoku.gridToArray = function(grid){
    })
 }
 
-sudoku.workingGrid = sudoku.arrayToGrid(sudoku.initialGrid);
+sudoku.workingGrid = sudoku.arrayToGrid(sudoku.initialArray);
 
 sudoku.checkRows = function(grid){
 	for (i=0;i<81;i++){
@@ -39,6 +39,7 @@ sudoku.checkRows = function(grid){
 			}
 		}
 	}
+   return grid;
 }
 
 sudoku.checkColumns = function(grid){
@@ -54,6 +55,7 @@ sudoku.checkColumns = function(grid){
          }
       }
    }
+   return grid;
 }
 
 sudoku.checkSquare = function(grid){
@@ -73,7 +75,6 @@ sudoku.checkSquare = function(grid){
    }
 }
 
-// console.log(workingGrid);
 
 sudoku.solve = function(grid){
 
@@ -81,61 +82,17 @@ sudoku.solve = function(grid){
       return i.value > 0;
    }).length;
 
-   console.log(count);
    // if all cells have value then solution found
    if (count==81){
-      // console.log(grid);
       return sudoku.gridToArray(grid);
    }
 
-   sudoku.checkRows(sudoku.workingGrid);
-   sudoku.checkColumns(sudoku.workingGrid);
-   sudoku.checkSquare(sudoku.workingGrid);
-
-   // find cells that only have one option and deal with them
-   var oneOption = grid.filter(function(i){
-      return i.options.length==1;
-   });
-
-   // console.log(oneOption);
-   if (oneOption.length>0){
-      oneOption.forEach(function(i){
-         grid[grid.indexOf(i)].value = grid[grid.indexOf(i)].options[0];
-         grid[grid.indexOf(i)].options = [];
-      });
-
-      solve(grid);
-   }
-
-   // find the first cell that only has two possible options
-   var twoOptions = grid.indexOf(grid.filter(function(i){
-      return i.options.length==2;
-   })[0]);
-
-   // console.log(twoOptions);
-   if (twoOptions<0){
-      console.log(grid);
-      return;
-   }
-
-   // try the first option to see if it leads to a solution
-   grid[twoOptions].value = grid[twoOptions].options[1];
-   // grid[twoOptions].options.shift();
-   grid[twoOptions].options.pop();
-
-   solve(grid);
 }
 
-// solve(workingGrid);
 
-// var min = Math.min.apply(Math.Min,workingGrid.map(function(i){
-//    return i.options.length>0 ? i.options.length : 99;
-// }));
-
-// console.log(min);
-
-
-exports.initialGrid = sudoku.initialGrid;
+exports.initialGrid = sudoku.initialArray;
 exports.arrayToGrid = sudoku.arrayToGrid;
 exports.gridToArray = sudoku.gridToArray;
+exports.checkRows = sudoku.checkRows;
+exports.checkColumns = sudoku.checkColumns;
 exports.solve = sudoku.solve;
