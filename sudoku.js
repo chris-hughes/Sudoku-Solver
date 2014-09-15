@@ -76,6 +76,14 @@ sudoku.checkSquaresOptions = function(grid){
    return grid;
 }
 
+sudoku.checkOptions = function(grid){
+   grid = sudoku.checkRowsOptions(grid);
+   grid = sudoku.checkColumnsOptions(grid);
+   grid = sudoku.checkSquaresOptions(grid);
+
+   return grid;
+}
+
 sudoku.checkRowsSolutions = function(grid){
    for (i=0;i<9;i++){
       rowTotal = 0;
@@ -117,6 +125,38 @@ sudoku.checkSquaresSolutions = function(grid){
    }) == 45*9 ? true : false;
 }
 
+sudoku.checkSolution = function(grid){
+   if (sudoku.checkRowsSolutions(grid)    && 
+       sudoku.checkColumnsSolutions(grid) && 
+       sudoku.checkSquaresSolutions(grid)
+      ){
+      return true;
+   }
+   else {
+      return false;
+   }
+}
+
+sudoku.singleOption = function(grid){
+
+   grid = sudoku.checkOptions(grid);
+
+   var oneOption = grid.filter(function(i){
+      return i.options.length==1;
+   });
+
+   // console.log(oneOption);
+   if (oneOption.length>0){
+      oneOption.forEach(function(i){
+         grid[grid.indexOf(i)].value = grid[grid.indexOf(i)].options[0];
+         grid[grid.indexOf(i)].options = [];
+      });
+
+      sudoku.singleOption(grid);
+   }
+   return grid;
+}
+
 sudoku.solve = function(grid){
 
    count = grid.filter(function(i){
@@ -125,17 +165,9 @@ sudoku.solve = function(grid){
 
    // if all cells have value then check if valid solution found
    if (count==81){
-      if (sudoku.checkRowsSolutions(grid)    && 
-          sudoku.checkColumnsSolutions(grid) && 
-          sudoku.checkSquaresSolutions(grid)
-         )
-      {
-         return true;
-      }
-      else {
-         return false;
-      }
+      return sudoku.checkSolution(grid);
    }
+
 }
 
 
@@ -145,7 +177,10 @@ exports.gridToArray = sudoku.gridToArray;
 exports.checkRowsOptions = sudoku.checkRowsOptions;
 exports.checkColumnsOptions = sudoku.checkColumnsOptions;
 exports.checkSquaresOptions = sudoku.checkSquaresOptions;
+exports.checkOptions = sudoku.checkOptions;
 exports.checkRowsSolutions = sudoku.checkRowsSolutions;
 exports.checkColumnsSolutions = sudoku.checkColumnsSolutions;
 exports.checkSquaresSolutions = sudoku.checkSquaresSolutions;
+exports.checkSolution = sudoku.checkSolution;
+exports.singleOption = sudoku.singleOption;
 exports.solve = sudoku.solve;

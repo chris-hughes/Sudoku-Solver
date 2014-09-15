@@ -204,7 +204,7 @@ describe('Solution checking functions', function(){
 
 	})
 
-	describe('Check column when incorrect', function(){	
+	describe('Check square when incorrect', function(){	
 
 		var array = [
 				0, 9, 0, 0, 0, 0, 8, 3, 0 ,
@@ -229,6 +229,53 @@ describe('Solution checking functions', function(){
 
 
 describe('Solve Function', function(){
+
+ 	describe('Helper functions', function(){
+
+		describe('Single options should have values filled in', function(){
+
+		    var array = [
+					1, 2, 3, 4, 5, 6, 7, 8, 0 ,
+					4, 0, 6, 7, 8, 9, 1, 2, 3 ,
+					7, 8, 9, 1, 2, 3, 4, 5, 6 ,
+					2, 3, 4, 5, 6, 7, 8, 9, 1 ,
+					5, 6, 7, 8, 9, 1, 2, 3, 4 ,
+					8, 9, 1, 2, 3, 4, 5, 6, 7 ,
+					3, 4, 5, 6, 7, 8, 9, 1, 2 ,
+					6, 7, 8, 9, 1, 2, 3, 4, 5 ,
+					0, 1, 2, 3, 4, 5, 6, 7, 8 ];
+
+		    var workingGrid = sudoku.arrayToGrid(array);
+
+		    it('should fill in all single values', function(){
+
+				sudoku.singleOption(workingGrid).should.eql(testCases.singleValueTest);
+
+		    })
+	 	})
+
+	  	describe('Recursively fill in single options', function(){
+
+		    var array = [
+					1, 2, 3, 4, 5, 6, 7, 8, 0 ,
+					4, 0, 6, 7, 8, 9, 1, 2, 3 ,
+					7, 8, 9, 1, 2, 3, 4, 5, 6 ,
+					2, 3, 4, 5, 6, 7, 8, 9, 1 ,
+					5, 6, 7, 8, 9, 1, 2, 3, 4 ,
+					8, 9, 1, 2, 3, 4, 5, 6, 7 ,
+					0, 0, 0, 6, 7, 8, 0, 1, 2 ,
+					0, 0, 0, 9, 1, 2, 3, 4, 5 ,
+					0, 1, 2, 3, 4, 5, 6, 7, 8 ];
+
+		    var workingGrid = sudoku.arrayToGrid(array);
+
+		    it('should recursively fill in all single values', function(){
+
+				sudoku.singleOption(workingGrid).should.eql(testCases.singleValueTest);
+
+		    })
+	 	})
+ 	})	
 
 	describe('Correct solution should return true', function(){
 
