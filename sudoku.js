@@ -145,7 +145,6 @@ sudoku.singleOption = function(grid){
       return i.options.length==1;
    });
 
-   // console.log(oneOption);
    if (oneOption.length>0){
       oneOption.forEach(function(i){
          grid[grid.indexOf(i)].value = grid[grid.indexOf(i)].options[0];
@@ -167,6 +166,19 @@ sudoku.solve = function(grid){
    if (count==81){
       return sudoku.checkSolution(grid);
    }
+
+   // find cells that only have one option and deal with them
+   grid = sudoku.checkOptions(grid);
+   var oneOption = grid.filter(function(i){
+      return i.options.length==1;
+   });
+
+   if (oneOption.length>0){
+      sudoku.singleOption(grid);
+      sudoku.solve(grid);
+   }
+
+   return sudoku.checkSolution(grid);
 
 }
 

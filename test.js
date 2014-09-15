@@ -320,4 +320,27 @@ describe('Solve Function', function(){
 
 	    })
  	})
+
+ 	describe('Shoud solve when only needs 1 option recursion', function(){
+
+		    var array = [
+					1, 2, 3, 4, 5, 6, 7, 8, 0 ,
+					4, 0, 6, 7, 8, 9, 1, 2, 3 ,
+					7, 8, 9, 1, 2, 3, 4, 5, 6 ,
+					2, 3, 4, 5, 6, 7, 8, 9, 1 ,
+					5, 6, 7, 8, 9, 1, 2, 3, 4 ,
+					8, 9, 1, 2, 3, 4, 5, 6, 7 ,
+					0, 0, 0, 6, 7, 8, 0, 1, 2 ,
+					0, 0, 0, 9, 1, 2, 3, 4, 5 ,
+					0, 1, 2, 3, 4, 5, 6, 7, 8 ];
+
+	    var workingGrid = sudoku.arrayToGrid(array);
+
+	    it('should solve and return true', function(){
+
+			sudoku.solve(workingGrid).should.be.true;
+
+	    })
+
+ 	})
 })
